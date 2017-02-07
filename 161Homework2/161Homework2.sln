@@ -1,9 +1,9 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{0153A7C4-E304-8760-47E4-C526A87B4021}") = "161Homework2", "Assembly-CSharp.csproj", "{476B9CBE-4B80-360A-F9E7-C7E46B8A51CA}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "161Homework2", "Assembly-CSharp.csproj", "{476B9CBE-4B80-360A-F9E7-C7E46B8A51CA}"
 EndProject
-Project("{0153A7C4-E304-8760-47E4-C526A87B4021}") = "161Homework2", "Assembly-CSharp-Editor.csproj", "{B41837A6-9794-CAAE-DFE2-3747926C8631}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "161Homework2", "Assembly-CSharp-Editor.csproj", "{B41837A6-9794-CAAE-DFE2-3747926C8631}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
