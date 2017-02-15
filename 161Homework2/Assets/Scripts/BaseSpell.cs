@@ -23,8 +23,9 @@ public class BaseSpell : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
 		if (other.CompareTag ("Boss") || other.CompareTag("Enemy")) {
-			castTarget.GetComponent<Unit>().ModifyHealth (-2);
+			castTarget.GetComponent<Unit>().ModifyHealth (-1.5f);
 			SystemManager.i.SpawnObject (Prefab.SmallExplosion, gameObject.transform.position);
+			SoundManager.i.PlaySound (Sound.Damaged1, 0.5f);
 			Destroy (gameObject);
 		}
 

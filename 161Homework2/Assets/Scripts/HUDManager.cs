@@ -60,6 +60,7 @@ public class HUDManager : MonoBehaviour {
 			totalCastTime = time;
 			isCasting = true;
 			castType = type;
+			SoundManager.i.PlaySound (Sound.Casting, 0.2f);
 		}
 	}
 

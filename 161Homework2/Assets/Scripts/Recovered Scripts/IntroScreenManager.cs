@@ -10,13 +10,16 @@ public class IntroScreenManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Time.timeScale = 0;
-		//SoundManager.i.PlaySound (Sound.IntroTheme, 1f);
+		Fade.i.FadeInStart();
+		SoundManager.i.PlaySoundLoop (Sound.AmbientHum, 1f);
+
 	}
 	
 
 	public void CloseIntroPanel(){
 		Time.timeScale = 1f;
 		instructionsPanel.SetActive (false);
+		Fade.i.FadeInStart ();
 	}
 
 	public void NextPanel(){

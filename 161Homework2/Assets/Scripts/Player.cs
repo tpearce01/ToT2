@@ -30,10 +30,8 @@ public class Player : Unit
 	int targetIndex = 0;
 	int startIndex;
 
-
     public override void PlayerInput()
     {
-        //not implemented
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ts.ClearTarget();
@@ -41,28 +39,42 @@ public class Player : Unit
 
 		//Tab Target
 		if (Input.GetKeyDown (KeyCode.Tab)) {
-			//Search through list of nearby enemies
-			Debug.Log(nearbyEnemies);
-			if (nearbyEnemies.Count > 1) {
-				startIndex = nearbyEnemies.IndexOf (target);
-				targetIndex =  startIndex + 1;
+			if (nearbyEnemies.Count > 1) {						//If there are multiple enemies nearby
+				if (target != null) {							//And we have a target
+					startIndex = nearbyEnemies.IndexOf (target);//Start index is the target's index
+				} else {										//Otherwise
+					startIndex = 0;								//Start at index 0
+				}
+				targetIndex =  startIndex + 1;					//Target index starts at index + 1
 			} else {
-				targetIndex = startIndex = 0;
-				target = nearbyEnemies [0];
-				UpdateTarget ();
+				if (nearbyEnemies.Count == 0) {
+					return;
+				}//If there is only 1 enemy
+				if(nearbyEnemies[0].GetComponent<Renderer>().isVisible){
+					targetIndex = startIndex = 0;								//Set index to 0
+					target = nearbyEnemies [0];									//And make the target the only enemy
+					UpdateTarget ();											//And update target
+					return;														//Then exit function
+				}
 			}
 
-			for (;targetIndex != startIndex; targetIndex++) {
-				//if targetIndex goes out of bounds, loop it back to 0
-				if (targetIndex > nearbyEnemies.Count - 1) {
-					targetIndex = 0;
+			//Continue if there is more than 1 enemy
+			int counter = nearbyEnemies.Count;
+			for (;targetIndex != startIndex; targetIndex++) {	//while target index != start index
+				if (targetIndex > nearbyEnemies.Count - 1) {	//if targetIndex exceeds the number of enemies
+					targetIndex = 0;							//Reset the index to 0
 				}
 
-				//If not already targetting the enemy at targetIndex, target that enemy & break loop
-				if (target != nearbyEnemies [targetIndex]/* && nearbyEnemies[targetIndex].renderer.isVisible*/) {
-					//set new target
-					target = nearbyEnemies [targetIndex];
-					UpdateTarget ();
+				//If the player is not already targeting the enemy at targetIndex
+				if (target != nearbyEnemies [targetIndex]) {
+					if(nearbyEnemies[targetIndex].GetComponent<Renderer>().isVisible){
+						target = nearbyEnemies [targetIndex];	//Set that enemy as the target
+						UpdateTarget ();						//then update the target
+						return;									//Then exit function
+					}
+				}
+				counter--;
+				if (counter == 0) {
 					break;
 				}
 			}
@@ -73,7 +85,7 @@ public class Player : Unit
 				StartCast (1.5f, 1, 5, Cast.BaseCast);
 			}
 			if (Input.GetKeyDown (KeyCode.Alpha2) && !muteAction && resource >= 10) {
-				InstantCast (3, -10);
+				InstantCast (2, -10);
 			}
 		}
     }
@@ -93,6 +105,13 @@ public class Player : Unit
 		muteAction = true;
 		BreakCast ();
 		MovementController.i.Kill ();
+		SoundManager.i.EndAll ("BatAudio");
+		Player.i.nearbyEnemies.Remove (gameObject);
+		if (SoundManager.i.IsPlaying ("SuspenseMusic")) {
+			SoundManager.i.EndSoundFade ("SuspenseMusic", 5f);
+		} else {
+			SoundManager.i.EndSoundFade ("SuspenseLoop", 5f);
+		}
 	}
 
 	public void StartCast(float time, float d, float regen, Cast type){
@@ -119,6 +138,7 @@ public class Player : Unit
 	public void BreakCast(){
 		HUDManager.i.BreakCast ();
 		animations.SetBool ("Casting", false);
+		SoundManager.i.EndSoundAbrupt ("Casting");
 	}
 
 	public void DamageEnemy(float value){
@@ -137,6 +157,8 @@ public class Player : Unit
 	}
 
 	public void CastSuccess(Cast type){
+		SoundManager.i.PlaySound (Sound.CastSuccess, 0.1f);
+		SoundManager.i.EndSoundAbrupt ("Casting");
 		animations.SetBool ("Casting", false);
 		ModifyResource (resourceRegen);
 		switch ((int)type) {

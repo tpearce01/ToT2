@@ -18,6 +18,10 @@ public class Portal : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision other){
-		SceneManager.LoadScene ("main_scene");
+		SoundManager.i.EndSoundAbrupt ("IntroTheme");
+		SoundManager.i.EndSoundFade ("AmbientHum", 0.5f);
+		SoundManager.i.PlaySound (Sound.SuspenseMusic, 1f);
+		Fade.i.FadeOutStart ("main_scene");
+		//SceneManager.LoadScene ("main_scene");
 	}
 }

@@ -94,8 +94,10 @@
      <Compile Include="Assets\Scripts\BaseSpell.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\DestroyExplosion.cs" />
+     <Compile Include="Assets\Scripts\EndScreenManager.cs" />
      <Compile Include="Assets\Scripts\EnemySpawnAttack1.cs" />
      <Compile Include="Assets\Scripts\Explodable.cs" />
+     <Compile Include="Assets\Scripts\Fade.cs" />
      <Compile Include="Assets\Scripts\HUDManager.cs" />
      <Compile Include="Assets\Scripts\PAttribute.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />

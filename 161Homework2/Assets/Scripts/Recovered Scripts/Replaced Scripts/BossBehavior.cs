@@ -33,7 +33,8 @@ public class BossBehavior : MonoBehaviour {
 
 		gameObject.transform.Rotate (0, 45 * Time.deltaTime, 0);
 
-		switch (phase) {
+		if (Player.i.health > 0) {
+			switch (phase) {
 			case 1:
 				Phase1 ();
 				break;
@@ -43,6 +44,7 @@ public class BossBehavior : MonoBehaviour {
 			case 3:
 				Phase3 ();
 				break;
+			}
 		}
 	}
 
@@ -98,12 +100,29 @@ public class BossBehavior : MonoBehaviour {
 		}
 	}
 
+	public void SpawnExplodablesWeighted(float min, float max, int quantity, float weight){
+		if (explodableSpawnTimer <= 0) {
+
+			Vector3 location = new Vector3 (Random.Range (xMin, xMax), 1, Random.Range (yMin, yMax));
+			Vector3 weightedLocation = Vector3.Lerp (location, Player.i.gameObject.transform.position, weight);
+
+			for (int i = 0; i < quantity; i++) {
+				SystemManager.i.SpawnObject(Prefab.Explodable, weightedLocation);
+			}
+
+			//reset timer
+			explodableSpawnTimer = Random.Range(min,max);
+		} else {
+			explodableSpawnTimer -= Time.deltaTime;
+		}
+	}
+
 	/*
 	 * Phase 1
 	 * Spawn adds slowly
 	 */ 
 	public void Phase1(){
-		SpawnAdds1 (10, 11, 1);
+		SpawnAdds1 (7, 9, 1);
 	}
 	/*
 	 * Phase 2 
@@ -111,8 +130,13 @@ public class BossBehavior : MonoBehaviour {
 	 * Spawn adds slowly
 	 */ 
 	public void Phase2(){
-		SpawnExplodablesWeighted (.5f, 1f, 1);	//Spawn 1 explodable after 3-5 seconds
-		SpawnAdds1(10, 11, 1);
+		if (Player.i.health >= 60) {
+			SpawnExplodablesWeighted (0.5f, 1f, 1, 0.5f);
+		}
+		else{
+			SpawnExplodablesWeighted (.5f, 1f, 1);	//Spawn 1 explodable after 0.5 to 1 seconds
+		}
+		SpawnAdds1(7, 9, 1);
 	}
 
 	/*
@@ -121,8 +145,9 @@ public class BossBehavior : MonoBehaviour {
 	 * Spawn adds moderately
 	 */ 
 	public void Phase3(){
-		SpawnExplodablesWeighted (0.2f, 0.3f, 1); //Spawn 2 explodables after 2-4 seconds
-		SpawnAdds1(7, 8, 1);
+		
+		SpawnExplodablesWeighted (0.3f, 0.4f, 1, .4f); //Spawn 1 explodables after 0.2 to 0.3 seconds
+		SpawnAdds1(5, 7, 1);
 	}
 
 

@@ -38,7 +38,12 @@ public class Boss : Unit {
 			Destroy (temp [i]);
 		}
 		Player.i.nearbyEnemies.Remove (gameObject);
-		SoundManager.i.EndSoundFade ("MainGameTheme", 3f);
+		if (SoundManager.i.IsPlaying ("SuspenseMusic")) {
+			SoundManager.i.EndSoundFade ("SuspenseMusic", 5f);
+		} else {
+			SoundManager.i.EndSoundFade ("SuspenseLoop", 5f);
+		}
+		MainGameManager.i.bossIsDead = true;
 		Destroy (bossObject);
 	}
 

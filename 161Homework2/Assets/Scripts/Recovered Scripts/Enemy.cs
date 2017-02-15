@@ -7,7 +7,7 @@ public class Enemy : Unit {
 	public Slider healthSlider;
 
 	public override void InitializeAwake(){
-		health = maxHealth.baseValue = 5;	
+		health = maxHealth.baseValue = 3;	
 		resource = 0;
 	}
 
@@ -29,7 +29,7 @@ public class Enemy : Unit {
 		}
 
 		Player.i.nearbyEnemies.Remove (gameObject);	//Remove this unit from the list of nearby enemies
-
+		SoundManager.i.EndSoundAbrupt("BatAudio");
 		Destroy (gameObject);
 	}
 		
@@ -61,6 +61,7 @@ public class Enemy : Unit {
 		healthSlider.value = health / maxHealth.baseValue;
 
 		HUDManager.i.UpdateHUD ();
+		SoundManager.i.PlaySound (Sound.Damaged1, 1f);
 	}
 
 }

@@ -29,6 +29,7 @@ public class EnemySpawnAttack1 : MonoBehaviour {
 		Debug.Log (other.tag);
 		if(other.gameObject.CompareTag("Player")){
 			Player.i.ModifyHealth (-3);
+			SoundManager.i.PlaySound (Sound.Damaged2, 0.5f);
 			Destroy (gameObject);
 		}
 	}

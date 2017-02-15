@@ -40,6 +40,7 @@ public class Explodable : MonoBehaviour {
 		if (playerInRange) {
 			Player.i.ModifyHealth (-30);
 		}
+		SoundManager.i.PlaySound (Sound.Explosion, 0.1f);
 		Destroy (gameObject);
 	}
 

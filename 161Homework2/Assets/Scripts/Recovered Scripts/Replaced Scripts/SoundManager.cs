@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour {
 
 	//EndSound vars
 	AudioSource target;
+	float targetVolume;
 	float duration;
 
 	List<AudioSource> clipsPlaying = new List<AudioSource>();
@@ -22,13 +23,11 @@ public class SoundManager : MonoBehaviour {
 	}
 
 	void Start(){
-		//PlaySound (Sound.Test, 1f);
-		//EndSoundFade ("Test", 5f);
 		DontDestroyOnLoad(gameObject);
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		
 
 		for (int i = 0; i < clipsPlaying.Count; i++) {
@@ -38,12 +37,12 @@ public class SoundManager : MonoBehaviour {
 				Destroy (source);
 				i--;
 			} else {
-				clipsPlaying [i].pitch = Mathf.Clamp(Time.timeScale, 0.5f, 1f);
+				//clipsPlaying [i].pitch = Mathf.Clamp(Time.timeScale, 0.5f, 1f);
 			}
 		}
 
 		if (target != null) {
-			target.volume -= (1/duration) * Time.deltaTime;
+			target.volume -= (targetVolume/(duration)) * Time.deltaTime;
 			if (target.volume <= 0) {
 				clipsPlaying.Remove (target);
 				Destroy (target);
@@ -57,6 +56,15 @@ public class SoundManager : MonoBehaviour {
 		source.clip = clips [(int)clipNumber];
 		source.volume = volume;
 		source.Play ();
+		clipsPlaying.Add (source);
+	}
+
+	public void PlaySoundLoop(Sound clipNumber, float volume){
+		AudioSource source = gameObject.AddComponent<AudioSource> ();
+		source.clip = clips [(int)clipNumber];
+		source.volume = volume;
+		source.Play ();
+		source.loop = true;
 		clipsPlaying.Add (source);
 	}
 
@@ -76,18 +84,45 @@ public class SoundManager : MonoBehaviour {
 		for (int i = 0; i < sources.Length; i++) {
 			if (sources[i].clip.name == soundName) {
 				target = sources[i];
+				Debug.Log ("Found " + soundName + ", fading out");
 				break;
 			}
 		}
 		duration = d;
+		targetVolume = target.volume;
 	}
 		
+	public bool IsPlaying(string soundName){
+		AudioSource[] sources = gameObject.GetComponents<AudioSource>();
+		for (int i = 0; i < sources.Length; i++) {
+			if (sources[i].clip.name == soundName) {
+				return true;
+			}
+		}
+		return false;
+	}
 
+	public void EndAll(string soundName){
+		AudioSource[] sources = gameObject.GetComponents<AudioSource>();
+		for (int i = 0; i < sources.Length; i++) {
+			if (sources[i].clip.name == soundName) {
+				EndSoundAbrupt (soundName);
+			}
+		}
+	}
 }
 
 	public enum Sound{
-		MainMenuTheme = 0,
+		IntroTheme = 0,
 		MainGameTheme = 1,
-		IntroTheme = 2
+		AmbientHum = 2,
+		BatAudio = 3,
+		Casting = 4,
+		CastSuccess = 5,
+		Damaged1 = 6,
+		Damaged2 = 7,
+		Explosion = 8,
+		SuspenseMusic = 9,
+		SuspenseLoop = 10
 	};
 

@@ -14,7 +14,7 @@ public class MainMenuManager : MonoBehaviour {
 	public void StartGame(){
 		//Display load screen
 		loadPanel.SetActive(true);
-		SoundManager.i.EndSoundFade ("MainMenuTheme", 1f);
+		SoundManager.i.EndSoundFade ("IntroTheme", 3f);
 		SceneManager.LoadScene ("intro_scene");
 
 	}
@@ -26,6 +26,6 @@ public class MainMenuManager : MonoBehaviour {
 	void Start(){
 		DontDestroyOnLoad (gameObject);
 
-		SoundManager.i.PlaySound (Sound.MainMenuTheme, 1f);
+		SoundManager.i.PlaySoundLoop (Sound.IntroTheme, 1f);
 	}
 }
