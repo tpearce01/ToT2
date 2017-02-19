@@ -28,6 +28,11 @@ public class SystemManager : MonoBehaviour {
 	public void SpawnObject(Prefab obj, Vector3 location){
 		SpawnObject((int)obj, location);
 	}
+
+	public void SpawnCombatText(Vector3 location, int value){
+		SpawnObject (Prefab.FloatingCombatText, location);
+		activeObjects[activeObjects.Count-1].GetComponent<FloatingCombatText> ().Initialize (value);
+	}
 }
 	
 //Enum to easily convert prefab names to the appropriate index
@@ -37,5 +42,6 @@ public enum Prefab{
 	BaseCast = 2,
 	EnemySpawnCast1 = 3,
 	Adds1 = 4,
-	SmallExplosion = 5
+	SmallExplosion = 5,
+	FloatingCombatText = 6
 };

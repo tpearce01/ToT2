@@ -77,7 +77,7 @@
 -define:UNITY_EDITOR_64
 -define:UNITY_EDITOR_OSX
 -define:CROSS_PLATFORM_INPUT
-'Assets/EndScreenManager.cs'
+'Assets/FloatingCombatText.cs'
 'Assets/Imports/Standard Assets/CrossPlatformInput/Scripts/AxisTouchButton.cs'
 'Assets/Imports/Standard Assets/CrossPlatformInput/Scripts/ButtonHandler.cs'
 'Assets/Imports/Standard Assets/CrossPlatformInput/Scripts/CrossPlatformInputManager.cs'
@@ -126,6 +126,7 @@
 'Assets/Scripts/BaseSpell.cs'
 'Assets/Scripts/CameraController.cs'
 'Assets/Scripts/DestroyExplosion.cs'
+'Assets/Scripts/EndScreenManager.cs'
 'Assets/Scripts/EnemySpawnAttack1.cs'
 'Assets/Scripts/Explodable.cs'
 'Assets/Scripts/Fade.cs'

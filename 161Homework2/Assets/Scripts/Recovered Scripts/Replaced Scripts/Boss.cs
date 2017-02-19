@@ -19,7 +19,7 @@ public class Boss : Unit {
 		//hold
 		if (health < 80 && BossBehavior.i.phase == 1) {
 			BossBehavior.i.phase = 2;
-		} else if (health < 40 && BossBehavior.i.phase == 2) {
+		} else if (health < 35 && BossBehavior.i.phase == 2) {
 			BossBehavior.i.phase = 3;
 		}
 
@@ -75,5 +75,6 @@ public class Boss : Unit {
 		healthSlider.value = health / maxHealth.baseValue;
 
 		HUDManager.i.UpdateHUD ();
+		SystemManager.i.SpawnCombatText (gameObject.transform.position, (int)(value * 10));
 	}
 }

@@ -38,7 +38,7 @@ public class Explodable : MonoBehaviour {
 	public void Explode(){
 		SystemManager.i.SpawnObject (Prefab.Explosion, gameObject.transform.position);
 		if (playerInRange) {
-			Player.i.ModifyHealth (-30);
+			Player.i.ModifyHealth (-20);
 		}
 		SoundManager.i.PlaySound (Sound.Explosion, 0.1f);
 		Destroy (gameObject);

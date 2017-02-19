@@ -77,6 +77,7 @@ public abstract class Unit : MonoBehaviour
         }
 
 		HUDManager.i.UpdateHUD ();
+		SystemManager.i.SpawnCombatText (gameObject.transform.position, (int)(value * 10));
     }
 
     public void ModifyResource(float value)

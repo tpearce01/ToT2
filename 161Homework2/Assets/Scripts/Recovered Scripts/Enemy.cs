@@ -35,7 +35,7 @@ public class Enemy : Unit {
 		
 	public override void ModifyHealth(float value){
 		//Modify with variance
-		value *= 1 + Random.Range(-variance, variance);
+		//value *= 1 + Random.Range(-variance, variance);
 
 		if (value < 0)
 		{
@@ -62,6 +62,7 @@ public class Enemy : Unit {
 
 		HUDManager.i.UpdateHUD ();
 		SoundManager.i.PlaySound (Sound.Damaged1, 1f);
+		SystemManager.i.SpawnCombatText (gameObject.transform.position, (int)(value * 10));
 	}
 
 }

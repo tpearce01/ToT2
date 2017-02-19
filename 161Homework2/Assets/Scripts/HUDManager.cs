@@ -27,6 +27,10 @@ public class HUDManager : MonoBehaviour {
 	public Slider targetHP;
 	public Slider targetResource;
 
+	//CastUI
+	public Image cast1;
+	public Image cast2;
+
 	// Use this for initialization
 	void Start () {
 		i = this;
@@ -39,6 +43,7 @@ public class HUDManager : MonoBehaviour {
 		if (isCasting) {
 			UpdateCast ();
 		}
+		ManageCastUI ();
 	}
 
 	//Update resource sliders
@@ -95,4 +100,20 @@ public class HUDManager : MonoBehaviour {
 		targetHUD.SetActive(false);
 		Player.i.target = null;
 	}
+
+	public void ManageCastUI(){
+		if (Input.GetKeyDown (KeyCode.Alpha1)) {
+			cast1.color = Color.gray;
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha1)) {
+			cast1.color = Color.white;
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha2)) {
+			cast2.color = Color.gray;
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha2)) {
+			cast2.color = Color.white;
+		}
+	}
+
 }
