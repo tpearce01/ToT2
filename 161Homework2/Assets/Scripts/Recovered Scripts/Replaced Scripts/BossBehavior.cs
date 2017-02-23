@@ -122,7 +122,7 @@ public class BossBehavior : MonoBehaviour {
 	 * Spawn adds slowly
 	 */ 
 	public void Phase1(){
-		SpawnAdds1 (7, 9, 1);
+		SpawnAdds1 (10, 15, 1);
 	}
 	/*
 	 * Phase 2 
@@ -136,7 +136,7 @@ public class BossBehavior : MonoBehaviour {
 		else{
 			SpawnExplodablesWeighted (.5f, 1f, 1);	//Spawn 1 explodable after 0.5 to 1 seconds
 		}
-		SpawnAdds1(7, 9, 1);
+		SpawnAdds1(10, 15, 1);
 	}
 
 	/*
@@ -146,8 +146,8 @@ public class BossBehavior : MonoBehaviour {
 	 */ 
 	public void Phase3(){
 		
-		SpawnExplodablesWeighted (0.3f, 0.4f, 1, .4f); //Spawn 1 explodables after 0.2 to 0.3 seconds
-		SpawnAdds1(5, 7, 1);
+		SpawnExplodablesWeighted (0.3f, 0.5f, 1, .4f); //Spawn 1 explodables after 0.2 to 0.3 seconds
+		SpawnAdds1(7, 9, 1);
 	}
 
 
